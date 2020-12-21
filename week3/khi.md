@@ -58,10 +58,11 @@ When an image is pushed to this repo, your workflows will kick off based on your
 실습
 1)먼저 명령어로 registry를 만든다. 
 `docker conatiner run -d -p 5000:5000 --name registry registry`
+
 2) 실습용으로 적당한 hello-world이미지를 받는다.
 `docker pull hello-world`
 
-3)이미지를 푸쉬하기 위해 새롭게 태그해준다. 여기서 중요한 건 push하려는 target registry의 호스트를 적어주는 거다.
+3)이미지를 푸쉬하기 위해 새롭게 태그해준다. 여기서 중요한 건 push하려는 target registry의 호스트를 적어준다.
 `docker tag hello-world 127.0.0.1:5000/hello-world`
 
 `docker image ls`로 확인하면 아래처럼 두 개를 볼 수 있다.
@@ -80,10 +81,17 @@ When an image is pushed to this repo, your workflows will kick off based on your
 7) `docker container kill registry`, `docker container rm registry`
 
 8) docker container run -d -p 5000:5000 --name registry -v $(pwd)/registry-data:/var/lib/registry registry
+이렇게 하면 registry-data라는 dir이 로컬에 생긴다. 이 안에 들어가보면 별게 없다.
+9) `docker push 127.0.0.1:5000/hello-world` 로 다시 8)에서 만든 registry에 push 해보자.
+이렇게 하고 `tree registry-data`명령어로 똑같은 dir을 확인해보면 엄청 복잡해진 것을(이미지가 저장됐음을) 확인할 수 있다.
+<img width="888" alt="Screen Shot 2020-12-21 at 1 41 46 PM" src="https://user-images.githubusercontent.com/60768642/102740101-54af6880-4392-11eb-8982-fbe8b55d5654.png">
 
 
 <img width="762" alt="Screen Shot 2020-12-21 at 11 01 28 AM" src="https://user-images.githubusercontent.com/60768642/102731727-ec558c80-437b-11eb-91ee-0e9b3e612f2d.png">
 
+
+이 강의의 결론:
+registry 만들 수 있지만, 이미 시중에 나와있는 registry가 있으니 그걸 활용해라 (aws에도 있음)
 
 ## Quiz
 
